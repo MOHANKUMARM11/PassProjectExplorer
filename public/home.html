@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Past Project Explorer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+</head>
+<body>
+  <header>
+    <div class="nav">
+      
+      <div class="logo">
+        <i class="bi bi-folder logo-icon"></i> Past Project Explorer
+      </div>
+      
+      <nav>
+        <a href="home.html" class="active">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="submit.html">Submit Project</a>
+        <a href="about.html">About Us</a>
+        <button onclick="openLogin()">Login</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <i class="bi bi-folder" style="font-size: 50px;"></i>
+        <h1>Past Project Explorer</h1>
+        <h3>Explore, Learn, and Share Student Projects</h3>
+        <p>Discover innovative projects created by talented students, get inspired, and share your own work with the community.</p>
+
+        <div class="hero-buttons">
+          <a href="projects.html" class="btn white"onclick="location.href='projects.html'">Explore Projects →</a>
+          <a href="submit.html" class="btn white"onclick="location.href='submit.html'">Submit Your Project</a>
+        </div>
+
+        <div class="search-bar">
+          <input type="text" placeholder="Search by title, year, or technology..." />
+          <button>Search</button>
+        </div>
+      </div>
+      <!-- Stats Cards -->
+    <section class="stats-section">
+      <div class="stats-card">
+        <div class="stats-number" id="totalProjects">-</div>
+        <div class="stats-label">Total Projects</div>
+      </div>
+      <div class="stats-card">
+        <div class="stats-number" id="studentsCount">-</div>
+        <div class="stats-label">Students</div>
+      </div>
+    </section>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Copyright | Past Project Explorer</p>
+  </footer>
+
+  <!-- Login Modal -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('loginModal')">&times;</span>
+    <h2>🔵 Login</h2>
+    <label>Username</label>
+    <input type="text" id="loginUsername" placeholder="Username" />
+    <label>Password</label>
+    <input type="password" id="loginPassword" placeholder="Enter your password" />
+    <button class="btn blue" onclick="loginUser()">Login</button>
+    <p>Don't have an account? <a href="#" onclick="switchModal('loginModal','signupModal')">Sign up</a></p>
+  </div>
+</div>
+
+<!-- Signup Modal -->
+<div id="signupModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('signupModal')">&times;</span>
+    <h2>🔷 Sign Up</h2>
+    <label>Username</label>
+    <input type="text" id="signupUsername" placeholder="Enter the username" />
+    <label>Password</label>
+    <input type="password" id="signupPassword" placeholder="Enter your password" />
+    <label>Confirm Password</label>
+    <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" />
+    <button class="btn green" onclick="signupUser()">Sign Up</button>
+    <p>Already have an account? <a href="#" onclick="switchModal('signupModal','loginModal')">Back to Login</a></p>
+  </div>
+</div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>

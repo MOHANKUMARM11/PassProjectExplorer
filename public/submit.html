@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Submit Project - Past Project Explorer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+  <!-- ---------------- Header ---------------- -->
+  <header>
+    <div class="nav">
+      <div class="logo">
+        <i class="bi bi-folder logo-icon"></i> Past Project Explorer
+      </div>
+      <nav>
+        <a href="home.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="submit.html" class="active">Submit Project</a>
+        <a href="about.html">About Us</a>
+        <button onclick="openLogin()">Login</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ---------------- Main ---------------- -->
+  <main>
+    <section class="form-section">
+      <h2>Submit Your Project</h2>
+      <p>Share your innovative project with the community and inspire other students</p>
+
+      <!-- Submit Form -->
+      <form class="submit-form" onsubmit="return handleSubmitProject(event)">
+        <div class="form-group">
+          <label>Project Title *</label>
+          <input id="projectTitle" type="text" placeholder="Enter your project title" required />
+        </div>
+
+        <div class="form-group">
+          <label>Year *</label>
+          <select id="projectYear" required>
+            <option value="">Select Year</option>
+            <option>2025</option>
+            <option>2024</option>
+            <option>2023</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Technologies Used *</label>
+          <input id="projectTech" type="text" placeholder="e.g., HTML, CSS, JS" required />
+        </div>
+
+        <div class="form-group">
+          <label>Contributors *</label>
+          <input id="projectContributors" type="text" placeholder="Comma separated names" required />
+        </div>
+
+        <div class="form-group full-width">
+          <label>Project Summary *</label>
+          <textarea id="projectSummary" placeholder="Write a short description..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Category *</label>
+          <select id="projectCategory" required>
+            <option value="">Select Category</option>
+            <option>Web Development</option>
+            <option>Mobile App</option>
+            <option>AI / ML</option>
+            <option>Data Science</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>GitHub Link</label>
+          <input id="projectGithub" type="url" placeholder="https://github.com/your-project" />
+        </div>
+
+        <div class="form-group full-width">
+          <label>Upload Docs / Report</label>
+          <div class="file-upload-wrapper">
+            <label for="projectFile" class="file-upload-label">
+              <i class="bi bi-upload"></i> Choose File
+            </label>
+            <!-- ✅ Correct field name -->
+            <input id="projectFile" name="file" type="file" class="file-upload-input" required/>
+            <span class="file-name">No file chosen</span>
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <button type="submit" class="submit-btn">Submit Project</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- ---------------- Footer ---------------- -->
+  <footer>
+    <p>© 2025 Copyright | Past Project Explorer</p>
+  </footer>
+
+  <!-- ---------------- Login Modal ---------------- -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('loginModal')">&times;</span>
+      <h2>🔵 Login</h2>
+      <label>Username</label>
+      <input type="text" id="loginUsername" placeholder="Username" />
+      <label>Password</label>
+      <input type="password" id="loginPassword" placeholder="Enter your password" />
+      <button class="btn blue" onclick="loginUser()">Login</button>
+      <p>Don't have an account? 
+        <a href="#" onclick="switchModal('loginModal','signupModal')">Sign up</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ---------------- Signup Modal ---------------- -->
+  <div id="signupModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('signupModal')">&times;</span>
+      <h2>🔷 Sign Up</h2>
+      <label>Username</label>
+      <input type="text" id="signupUsername" placeholder="Enter the username" />
+      <label>Password</label>
+      <input type="password" id="signupPassword" placeholder="Enter your password" />
+      <label>Confirm Password</label>
+      <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" />
+      <button class="btn green" onclick="signupUser()">Sign Up</button>
+      <p>Already have an account? 
+        <a href="#" onclick="switchModal('signupModal','loginModal')">Back to Login</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ---------------- Script ---------------- -->
+  <script src="script.js"></script>
+</body>
+</html>
