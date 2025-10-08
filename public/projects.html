@@ -8,7 +8,6 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
-
   <!-- Header / Navbar -->
   <header>
     <div class="nav">
@@ -30,113 +29,59 @@
     <section class="projects-section">
       <h2 class="green">Student Projects</h2>
       <p class="center">Discover innovative projects created by talented students across various disciplines</p>
-
       <div class="filters">
-        <input type="text" placeholder="Search Projects" />
-        <select>
+        <input type="text" id="searchInput" placeholder="Search Projects" />
+        <select id="categoryFilter">
           <option>All Categories</option>
-          <option>AI</option>
-          <option>IoT</option>
-          <option>Mobile Development</option>
+          <option>Web Development</option>
+          <option>Mobile App</option>
+          <option>AI / ML</option>
+          <option>Data Science</option>
+          <option>Other</option>
         </select>
-        <select>
+        <select id="yearFilter">
           <option>All Years</option>
           <option>2025</option>
           <option>2024</option>
           <option>2023</option>
         </select>
       </div>
-
-      <p class="center small">Showing 3 of 3 projects</p>
-
-      <div class="projects-grid">
-
-        <!-- Project 1 -->
-        <div class="project-card">
-          <h3>AI Attendance System <span class="year-badge">2023</span></h3>
-          <p><strong>AI</strong></p>
-          <div class="tags">
-            <span>Python</span>
-            <span>Flask</span>
-            <span>OpenCV</span>
-            <span>+1</span>
-          </div>
-          <p>Facial recognition-based attendance system with real-time analytics and logs. Includes admin dashboard and reporting.</p>
-          <p class="contributors">👥 Alex Johnson, Sarah Chen</p>
-          <div class="card-links">
-            <button>🔗 GitHub</button>
-            <button>📄 Docs</button>
-          </div>
-        </div>
-
-        <!-- Project 2 -->
-        <div class="project-card">
-          <h3>E-Commerce Mobile App <span class="year-badge">2023</span></h3>
-          <p><strong>Mobile Development</strong></p>
-          <div class="tags">
-            <span>React Native</span>
-            <span>Node.js</span>
-            <span>MongoDB</span>
-            <span>+1</span>
-          </div>
-          <p>Mobile shopping app with payment, user authentication, product catalog, and order management.</p>
-          <p class="contributors">👥 Mike Rodriguez, Emma Wilson, David Kim</p>
-          <div class="card-links">
-            <button>🔗 GitHub</button>
-            <button>📄 Docs</button>
-          </div>
-        </div>
-
-        <!-- Project 3 -->
-        <div class="project-card">
-          <h3>Smart Home IoT Dashboard <span class="year-badge">2024</span></h3>
-          <p><strong>IoT</strong></p>
-          <div class="tags">
-            <span>Arduino</span>
-            <span>React</span>
-            <span>MQTT</span>
-            <span>+1</span>
-          </div>
-          <p>Real-time dashboard for controlling smart home devices including lights, sensors, and security systems.</p>
-          <p class="contributors">👥 Lisa Zhang, Tom Brown</p>
-          <div class="card-links">
-            <button>🔗 GitHub</button>
-            <button>📄 Docs</button>
-          </div>
-        </div>
-
+      <p class="center small" id="projectsCount"></p>
+      <div id="projectsGrid" class="projects-grid">
+        <!-- Project cards dynamically filled by script.js -->
       </div>
     </section>
   </main>
-  <!-- Login Modal -->
-<div id="loginModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal('loginModal')">&times;</span>
-    <h2>🔵 Login</h2>
-    <label>Username</label>
-    <input type="text" id="loginUsername" placeholder="Username" />
-    <label>Password</label>
-    <input type="password" id="loginPassword" placeholder="Enter your password" />
-    <button class="btn blue" onclick="loginUser()">Login</button>
-    <p>Don't have an account? <a href="#" onclick="switchModal('loginModal','signupModal')">Sign up</a></p>
-  </div>
-</div>
 
-<!-- Signup Modal -->
-<div id="signupModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal('signupModal')">&times;</span>
-    <h2>🔷 Sign Up</h2>
-    <label>Username</label>
-    <input type="text" id="signupUsername" placeholder="Enter the username" />
-    <label>Password</label>
-    <input type="password" id="signupPassword" placeholder="Enter your password" />
-    <label>Confirm Password</label>
-    <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" />
-    <button class="btn green" onclick="signupUser()">Sign Up</button>
-    <p>Already have an account? <a href="#" onclick="switchModal('signupModal','loginModal')">Back to Login</a></p>
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('loginModal')">&times;</span>
+      <h2>🔵 Login</h2>
+      <label>Username</label>
+      <input type="text" id="loginUsername" placeholder="Username" />
+      <label>Password</label>
+      <input type="password" id="loginPassword" placeholder="Enter your password" />
+      <button class="btn blue" onclick="loginUser()">Login</button>
+      <p>Don't have an account? <a href="#" onclick="switchModal('loginModal','signupModal')">Sign up</a></p>
+    </div>
   </div>
-</div>
+
+  <!-- Signup Modal -->
+  <div id="signupModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('signupModal')">&times;</span>
+      <h2>🔷 Sign Up</h2>
+      <label>Username</label>
+      <input type="text" id="signupUsername" placeholder="Enter the username" />
+      <label>Password</label>
+      <input type="password" id="signupPassword" placeholder="Enter your password" />
+      <label>Confirm Password</label>
+      <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" />
+      <button class="btn green" onclick="signupUser()">Sign Up</button>
+      <p>Already have an account? <a href="#" onclick="switchModal('signupModal','loginModal')">Back to Login</a></p>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

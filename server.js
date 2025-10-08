@@ -1,4 +1,3 @@
-// server.js
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
@@ -11,10 +10,10 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// 👉 Serve static files (home.html, submit.html, script.js, etc.)
+// 👉 Serve static files
 app.use(express.static(path.join(__dirname, "public")));
 
-// 👉 Serve uploaded files (important for downloading reports later)
+// 👉 Serve uploaded files
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // --------------------- MongoDB Connection ---------------------
@@ -28,7 +27,7 @@ mongoose.connect(
 // --------------------- User Schema ---------------------
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
-  password: { type: String, required: true } // ⚠️ plain text (improve later with bcrypt)
+  password: { type: String, required: true }
 });
 const User = mongoose.model("User", userSchema);
 
@@ -49,12 +48,11 @@ const Project = mongoose.model("Project", projectSchema);
 
 // --------------------- Multer Config ---------------------
 if (!fs.existsSync("uploads")) {
-  fs.mkdirSync("uploads"); // create uploads folder if not exists
+  fs.mkdirSync("uploads");
 }
-
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/"); // save files inside /uploads folder
+    cb(null, "uploads/");
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + "-" + file.originalname);
@@ -66,15 +64,12 @@ const upload = multer({ storage });
 app.post("/signup", async (req, res) => {
   try {
     const { username, password } = req.body;
-
     const existingUser = await User.findOne({ username });
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
     }
-
     const newUser = new User({ username, password });
     await newUser.save();
-
     res.json({ message: "Signup successful" });
   } catch (err) {
     console.error(err);
@@ -86,16 +81,13 @@ app.post("/signup", async (req, res) => {
 app.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
-
     const user = await User.findOne({ username });
     if (!user) {
       return res.status(400).json({ message: "User not found" });
     }
-
     if (user.password !== password) {
       return res.status(401).json({ message: "Invalid password" });
     }
-
     res.json({ message: "Login successful" });
   } catch (err) {
     console.error(err);
@@ -107,7 +99,6 @@ app.post("/login", async (req, res) => {
 app.post("/submit-project", upload.single("file"), async (req, res) => {
   try {
     const { title, year, tech, contributors, summary, category, github, username } = req.body;
-
     const newProject = new Project({
       title,
       year,
@@ -119,7 +110,6 @@ app.post("/submit-project", upload.single("file"), async (req, res) => {
       username,
       filePath: req.file ? `/uploads/${req.file.filename}` : null
     });
-
     await newProject.save();
     res.json({ message: "✅ Project submitted successfully" });
   } catch (err) {
@@ -136,6 +126,17 @@ app.get("/projects", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Error fetching projects" });
+  }
+});
+
+// --------------------- Get All Users Route (NEW - REQUIRED) ---------------------
+app.get("/users", async (req, res) => {
+  try {
+    const users = await User.find({}, "-password"); // exclude passwords for security
+    res.json(users);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error fetching users" });
   }
 });
 
