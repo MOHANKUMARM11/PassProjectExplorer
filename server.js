@@ -18,9 +18,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // --------------------- MongoDB Connection ---------------------
 mongoose.connect(
-  "mongodb+srv://mohan:mohanmongo11@cluster0.77a0nem.mongodb.net/pastproject",
-  { useNewUrlParser: true, useUnifiedTopology: true }
-)
+  "mongodb+srv://mohan:mohanmongo11@cluster0.77a0nem.mongodb.net/pastproject")
 .then(() => console.log("✅ Connected to MongoDB Atlas"))
 .catch(err => console.error("❌ MongoDB Error:", err));
 

@@ -19,19 +19,14 @@ window.onclick = function (event) {
 };
 
 // --------------------- Dynamic Counts ---------------------
-// This fetches ALL users and ALL projects for counting cards.
 document.addEventListener("DOMContentLoaded", async () => {
-  // Project & student counts for home or dashboard
   try {
-    // Fetch projects from backend
     const projRes = await fetch("http://localhost:5000/projects");
     const projects = await projRes.json();
     const totalProjectsElement = document.getElementById("totalProjects");
     if (totalProjectsElement) {
       totalProjectsElement.textContent = Array.isArray(projects) ? projects.length : "-";
     }
-
-    // Fetch all users from backend
     const usersRes = await fetch("http://localhost:5000/users");
     const users = await usersRes.json();
     const studentCountElement = document.getElementById("studentsCount");
@@ -85,7 +80,6 @@ async function loginUser() {
     if (res.ok) {
       closeModal("loginModal");
       localStorage.setItem("loggedInUser", username);
-
       const navBtn = document.querySelector("nav button");
       navBtn.innerText = "Logout";
       navBtn.onclick = logoutUser;
@@ -133,14 +127,12 @@ if (fileInput) {
 // --------------------- Submit Project ---------------------
 async function handleSubmitProject(event) {
   event.preventDefault();
-
   const loggedInUser = localStorage.getItem("loggedInUser");
   if (!loggedInUser) {
     alert("You must login before submitting a project.");
     openLogin();
     return;
   }
-
   const title = document.getElementById("projectTitle").value.trim();
   const year = document.getElementById("projectYear").value;
   const tech = document.getElementById("projectTech").value.trim();
@@ -149,17 +141,14 @@ async function handleSubmitProject(event) {
   const category = document.getElementById("projectCategory").value;
   const github = document.getElementById("projectGithub").value.trim();
   const file = document.getElementById("projectFile").files[0];
-
   if (!title || !year || !tech || !contributors || !summary || !category) {
     alert("Please fill all required fields.");
     return;
   }
-
   if (file && file.size > 5 * 1024 * 1024) {
     alert("File size must be less than 5 MB.");
     return;
   }
-
   const formData = new FormData();
   formData.append("title", title);
   formData.append("year", year);
@@ -170,16 +159,13 @@ async function handleSubmitProject(event) {
   formData.append("github", github);
   if (file) formData.append("file", file);
   formData.append("username", loggedInUser);
-
   try {
     const res = await fetch("http://localhost:5000/submit-project", {
       method: "POST",
       body: formData,
     });
-
     const data = await res.json();
     alert(data.message);
-
     if (res.ok) {
       event.target.reset();
       document.querySelector(".file-name").textContent = "No file chosen";
@@ -192,10 +178,18 @@ async function handleSubmitProject(event) {
 
 // --------------------- Project Render & Filter ---------------------
 document.addEventListener("DOMContentLoaded", () => {
-  fetchAndRenderProjects();
+  // Handle ?search= param from URL
+  const params = new URLSearchParams(window.location.search);
+  const searchParam = params.get('search');
   const searchInput = document.getElementById('searchInput');
   const categoryFilter = document.getElementById('categoryFilter');
   const yearFilter = document.getElementById('yearFilter');
+
+  if (searchParam && searchInput) {
+    searchInput.value = searchParam;
+  }
+
+  fetchAndRenderProjects();
   if (searchInput) searchInput.addEventListener('input', fetchAndRenderProjects);
   if (categoryFilter) categoryFilter.addEventListener('change', fetchAndRenderProjects);
   if (yearFilter) yearFilter.addEventListener('change', fetchAndRenderProjects);
@@ -208,8 +202,6 @@ async function fetchAndRenderProjects() {
     const searchText = document.getElementById('searchInput')?.value.trim().toLowerCase() || "";
     const selectedCategory = document.getElementById('categoryFilter')?.value || "All Categories";
     const selectedYear = document.getElementById('yearFilter')?.value || "All Years";
-
-    // Filtering logic
     const filtered = projects.filter(proj => {
       const matchesSearch = [proj.title, proj.contributors, proj.summary, proj.tech, proj.category]
         .some(val => val && val.toLowerCase().includes(searchText));
@@ -217,12 +209,10 @@ async function fetchAndRenderProjects() {
       const matchesYear = (selectedYear === "All Years") || (proj.year === selectedYear);
       return matchesSearch && matchesCategory && matchesYear;
     });
-
     const projectsCountElem = document.getElementById('projectsCount');
     if (projectsCountElem) {
       projectsCountElem.textContent = `Showing ${filtered.length} of ${projects.length} projects`;
     }
-
     const grid = document.getElementById('projectsGrid');
     if (grid) {
       grid.innerHTML = filtered.map(proj => `
