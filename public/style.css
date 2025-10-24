@@ -280,7 +280,7 @@ nav button {
 }
 
 .file-upload-input {
-  display: none; /* hide ugly default */
+  display: none;
 }
 
 .file-upload-label {
@@ -489,4 +489,39 @@ footer {
 
 .stats-label {
   font-size: 1.1rem;
+}
+
+/* ---------------- About Page Summary ---------------- */
+.summary-section {
+  background-color: #ffffff;
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 50px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  text-align: left;
+  line-height: 1.8;
+}
+
+.summary-section h2 {
+  text-align: center;
+  font-size: 28px;
+  color: #0c76cd;
+  margin-bottom: 25px;
+  letter-spacing: 0.5px;
+}
+
+.summary-section p {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 18px;
+  text-align: justify;
+}
+
+.summary-section .contact-note {
+  text-align: center;
+  margin-top: 25px;
+  font-weight: bold;
+  color: #0c76cd;
+  font-size: 17px;
 }
