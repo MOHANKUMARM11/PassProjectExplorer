@@ -228,7 +228,7 @@ async function fetchAndRenderProjects() {
 
       const matchesCategory = selectedCategory === "All Categories" || proj.category === selectedCategory;
 
-      // ✅ Allow partial year search
+      // Allow partial year search
       const matchesYear = selectedYear === "" || proj.year.toString().startsWith(selectedYear);
 
       return matchesSearch && matchesCategory && matchesYear;
@@ -253,7 +253,7 @@ async function fetchAndRenderProjects() {
             <p class="contributors">👥 ${escapeHTML(proj.contributors)}</p>
             <div class="card-links">
               ${proj.github ? `<a href="${escapeHTML(proj.github)}" target="_blank"><button>🔗 GitHub</button></a>` : ''}
-              ${proj.filePath ? `<a href="${proj.filePath}" target="_blank"><button>📄 Docs</button></a>` : ''}
+              ${proj._id ? `<a href="/project-file/${proj._id}" target="_blank"><button>📄 Docs</button></a>` : ''}
             </div>
           </div>
         `).join("") || `<div class="center small">No projects found.</div>`;

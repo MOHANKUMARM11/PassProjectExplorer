@@ -4,32 +4,29 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const multer = require("multer");
-const fs = require("fs");
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// 👉 Serve static files
+// Serve static files
 app.use(express.static(path.join(__dirname, "public")));
 
-// 👉 Serve uploaded files
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
-// --------------------- MongoDB Connection ---------------------
+// MongoDB connection
 mongoose.connect(
-  "mongodb+srv://mohan:mohanmongo11@cluster0.77a0nem.mongodb.net/pastproject")
+  "mongodb+srv://mohan:mohanmongo11@cluster0.77a0nem.mongodb.net/pastproject"
+)
 .then(() => console.log("✅ Connected to MongoDB Atlas"))
 .catch(err => console.error("❌ MongoDB Error:", err));
 
-// --------------------- User Schema ---------------------
+// User schema and model
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true }
 });
 const User = mongoose.model("User", userSchema);
 
-// --------------------- Project Schema ---------------------
+// Project schema and model updated to store file data and type
 const projectSchema = new mongoose.Schema({
   title: String,
   year: String,
@@ -38,27 +35,18 @@ const projectSchema = new mongoose.Schema({
   summary: String,
   category: String,
   github: String,
-  filePath: String,
   username: String,
+  fileData: Buffer,
+  fileContentType: String,
   createdAt: { type: Date, default: Date.now }
 });
 const Project = mongoose.model("Project", projectSchema);
 
-// --------------------- Multer Config ---------------------
-if (!fs.existsSync("uploads")) {
-  fs.mkdirSync("uploads");
-}
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  }
-});
+// Multer memory storage instead of disk storage
+const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// --------------------- Signup Route ---------------------
+// Signup route
 app.post("/signup", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -75,7 +63,7 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-// --------------------- Login Route ---------------------
+// Login route
 app.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -93,7 +81,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// --------------------- Submit Project Route ---------------------
+// Submit project route saving file buffer and content type in DB
 app.post("/submit-project", upload.single("file"), async (req, res) => {
   try {
     const { title, year, tech, contributors, summary, category, github, username } = req.body;
@@ -106,7 +94,8 @@ app.post("/submit-project", upload.single("file"), async (req, res) => {
       category,
       github,
       username,
-      filePath: req.file ? `/uploads/${req.file.filename}` : null
+      fileData: req.file ? req.file.buffer : null,
+      fileContentType: req.file ? req.file.mimetype : null
     });
     await newProject.save();
     res.json({ message: "✅ Project submitted successfully" });
@@ -116,10 +105,11 @@ app.post("/submit-project", upload.single("file"), async (req, res) => {
   }
 });
 
-// --------------------- Get All Projects Route ---------------------
+// Get all projects (omitting file data for lighter response)
 app.get("/projects", async (req, res) => {
   try {
-    const projects = await Project.find().sort({ createdAt: -1 });
+    // Exclude fileData field in the list response to reduce payload
+    const projects = await Project.find().sort({ createdAt: -1 }).select("-fileData");
     res.json(projects);
   } catch (err) {
     console.error(err);
@@ -127,10 +117,26 @@ app.get("/projects", async (req, res) => {
   }
 });
 
-// --------------------- Get All Users Route (NEW - REQUIRED) ---------------------
+// Route to download/display a project file by project ID
+app.get("/project-file/:id", async (req, res) => {
+  try {
+    const project = await Project.findById(req.params.id).select("fileData fileContentType title");
+    if (!project || !project.fileData) {
+      return res.status(404).json({ message: "File not found" });
+    }
+    res.set("Content-Type", project.fileContentType);
+    res.set("Content-Disposition", `attachment; filename="${project.title}-document"`);
+    res.send(project.fileData);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error retrieving file" });
+  }
+});
+
+// Get all users route
 app.get("/users", async (req, res) => {
   try {
-    const users = await User.find({}, "-password"); // exclude passwords for security
+    const users = await User.find({}, "-password"); // exclude passwords
     res.json(users);
   } catch (err) {
     console.error(err);
@@ -138,11 +144,11 @@ app.get("/users", async (req, res) => {
   }
 });
 
-// --------------------- Root Route ---------------------
+// Root route
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "home.html"));
 });
 
-// --------------------- Start Server ---------------------
+// Start server
 const PORT = 5000;
 app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));
