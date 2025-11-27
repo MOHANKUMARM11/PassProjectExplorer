@@ -429,16 +429,47 @@ nav button {
   margin-bottom: 10px;
 }
 
-.social-icons i {
-  margin: 0 6px;
-  font-size: 18px;
-  color: #0c76cd;
-  cursor: pointer;
-  transition: transform 0.2s;
+/* ---------------- Updated Social Icons ---------------- */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
 }
 
-.social-icons i:hover {
-  transform: scale(1.1);
+.social-icons a {
+  text-decoration: none;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: transparent;
+  transition: background 0.18s ease, transform 0.12s ease;
+  line-height: 0;
+}
+
+.social-icons i {
+  font-size: 18px;
+  color: #0c76cd;
+}
+
+.social-icons a:hover {
+  background: #eef6ff;
+  transform: translateY(-2px);
+}
+
+.social-icons a:focus {
+  outline: none;
+}
+
+.social-icons a:focus-visible {
+  outline: 3px solid rgba(12,118,205,0.18);
+  outline-offset: 4px;
+  background: #f0f7ff;
 }
 
 /* ---------------- Footer ---------------- */

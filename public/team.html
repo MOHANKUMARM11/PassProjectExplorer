@@ -12,7 +12,6 @@
 
   <header>
     <div class="nav">
-
       <div class="logo">
         <i class="bi bi-folder logo-icon"></i> Past Project Explorer
       </div>
@@ -37,11 +36,14 @@
         <h3>Mohan kumar M</h3>
         <p>Backend & Database<br>Project Lead</p>
         <div class="social-icons">
-          <a href="https://www.linkedin.com/in/mohan-kumar-m-b21911338?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">
+          <a href="https://www.linkedin.com/in/mohan-kumar-m-b21911338" target="_blank">
             <i class="fab fa-linkedin"></i>
           </a>
           <a href="https://github.com/MOHANKUMARM11" target="_blank">
             <i class="fab fa-github"></i>
+          </a>
+          <a href="mailto:mohanm9612@gmail.com">
+            <i class="fas fa-envelope"></i>
           </a>
         </div>
       </div>
@@ -50,21 +52,35 @@
       <div class="team-card">
         <img src="images/member2.jpg" alt="Nithish N" class="team-img" />
         <h3>Nithish N</h3>
-        <p>frontend Developer<br>Database </p>
+        <p>Frontend Developer<br>Database</p>
         <div class="social-icons">
-          <i class="fab fa-linkedin"></i>
-          <i class="fab fa-github"></i>
+          <a href="https://www.linkedin.com/in/nithish-n-940414338/" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/nithishnagendran" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="mailto:nithishnagendran@gmail.com">
+            <i class="fas fa-envelope"></i>
+          </a>
         </div>
       </div>
 
       <!-- Member 3 -->
       <div class="team-card">
-        <img src="images/member3.jpg" alt="Nirmal s" class="team-img" />
+        <img src="images/member3.jpg" alt="Nirmal S" class="team-img" />
         <h3>Nirmal S</h3>
         <p>Frontend Developer<br>Database</p>
         <div class="social-icons">
-          <i class="fab fa-linkedin"></i>
-          <i class="fab fa-github"></i>
+          <a href="https://www.linkedin.com/in/mohan-kumar-m-b21911338" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/SNirmal5498" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="mailto:nirmalsundaram5498@gmail.com">
+            <i class="fas fa-envelope"></i>
+          </a>
         </div>
       </div>
 
@@ -72,10 +88,17 @@
       <div class="team-card">
         <img src="images/member4.jpg" alt="Nishanth M" class="team-img" />
         <h3>Nishanth M</h3>
-        <p>Backend <br> Database</p>
+        <p>Backend<br>Database</p>
         <div class="social-icons">
-          <i class="fab fa-linkedin"></i>
-          <i class="fab fa-github"></i>
+          <a href="https://www.linkedin.com/in/nishanth-m-7a311a339/" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/Nishanth2205" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="mailto:nishanthhari07@gmail.com">
+            <i class="fas fa-envelope"></i>
+          </a>
         </div>
       </div>
 
@@ -83,48 +106,53 @@
       <div class="team-card">
         <img src="images/member5.jpg" alt="Padmanaban M" class="team-img" />
         <h3>Padmanaban M</h3>
-        <p>Backend developer<br>Data organizer </p>
+        <p>Backend Developer<br>Data Organizer</p>
         <div class="social-icons">
-          <i class="fab fa-linkedin"></i>
-          <i class="fab fa-github"></i>
+          <a href="https://www.linkedin.com/in/padmanaban-murugesan-120650391/" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/padmanaban-mu" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="mailto:padmanabanm002@gmail.com">
+            <i class="fas fa-envelope"></i>
+          </a>
         </div>
       </div>
 
     </div>
   </section>
 
-  
   <!-- Login Modal -->
-<div id="loginModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal('loginModal')">&times;</span>
-    <h2>🔵 Login</h2>
-    <label>Username</label>
-    <input type="text" id="loginUsername" placeholder="Username" />
-    <label>Password</label>
-    <input type="password" id="loginPassword" placeholder="Enter your password" />
-    <button class="btn blue" onclick="loginUser()">Login</button>
-    <p>Don't have an account? <a href="#" onclick="switchModal('loginModal','signupModal')">Sign up</a></p>
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('loginModal')">&times;</span>
+      <h2>🔵 Login</h2>
+      <label>Username</label>
+      <input type="text" id="loginUsername" placeholder="Username" />
+      <label>Password</label>
+      <input type="password" id="loginPassword" placeholder="Enter your password" />
+      <button class="btn blue" onclick="loginUser()">Login</button>
+      <p>Don't have an account? <a href="#" onclick="switchModal('loginModal','signupModal')">Sign up</a></p>
+    </div>
   </div>
-</div>
 
-<!-- Signup Modal -->
-<div id="signupModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal('signupModal')">&times;</span>
-    <h2>🔷 Sign Up</h2>
-    <label>Username</label>
-    <input type="text" id="signupUsername" placeholder="Enter the username" />
-    <label>Password</label>
-    <input type="password" id="signupPassword" placeholder="Enter your password" />
-    <label>Confirm Password</label>
-    <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" />
-    <button class="btn green" onclick="signupUser()">Sign Up</button>
-    <p>Already have an account? <a href="#" onclick="switchModal('signupModal','loginModal')">Back to Login</a></p>
+  <!-- Signup Modal -->
+  <div id="signupModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('signupModal')">&times;</span>
+      <h2>🔷 Sign Up</h2>
+      <label>Username</label>
+      <input type="text" id="signupUsername" placeholder="Enter the username" />
+      <label>Password</label>
+      <input type="password" id="signupPassword" placeholder="Enter your password" />
+      <label>Confirm Password</label>
+      <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" />
+      <button class="btn green" onclick="signupUser()">Sign Up</button>
+      <p>Already have an account? <a href="#" onclick="switchModal('signupModal','loginModal')">Back to Login</a></p>
+    </div>
   </div>
-</div>
 
   <script src="script.js"></script>
-
 </body>
 </html>
